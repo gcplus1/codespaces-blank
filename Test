@@ -1,0 +1,26 @@
+import requests
+from bs4 import BeautifulSoup
+import time
+
+# The URL of the website to monitor
+url = "https://tabitisrael.co.il/online-reservations/create-reservation?step=search&orgId=62efae532edea116b743b2f9&locale=he-IL&type=future_reservation"
+
+# The interval (in seconds) between checks
+interval = 60
+
+# The initial HTML of the website
+last_html = ""
+
+while True:
+    # Fetch the current HTML of the website
+    response = requests.get(url)
+    current_html = response.text
+
+    # If the HTML has changed since the last check, print a message
+    if current_html != last_html:
+        print("The website has changed!")
+        last_html = current_html
+
+    # Wait for the specified interval before checking again
+    time.sleep(interval)
+    
